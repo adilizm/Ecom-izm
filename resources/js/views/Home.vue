@@ -1,11 +1,15 @@
 <template>
-  <h1>this is the home</h1>
-  <h2>{{store.state.counter}}</h2>
+ <sliders/>
+ <homeprudects/>
+
 </template>
 
 <script>
 import { inject } from 'vue';
+import sliders from '../components/sliders.vue'
+import homeprudects from '../components/home_products.vue'
 export default {
+  components:{sliders,homeprudects},
  setup() {
     const store = inject('store')
     return { store };

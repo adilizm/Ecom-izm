@@ -199,9 +199,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-group col-12">
-                                                    <label for="textareadescription">prodect description</label>
-                                                    <textarea required type="text" minlength="40" maxlength="400" name="description"  style="height: 100px" class="form-control"
-                                                        id="textareadescription"></textarea>
+                                                    <label for="editor">prodect description</label>
+                                                    <textarea  type="text" minlength="40" maxlength="400" name="description"  style="height: 100px" class="form-control"
+                                                        id="editor"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -299,5 +299,13 @@
         </div>
     </div>
     </div>
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 
 @endsection

@@ -16,6 +16,8 @@ const state = reactive({
     Telephone: null,
     Email: null,
     Ville: null,
+    sliders:[],
+    home_products:[],
 });
 
 const methodes = {
@@ -193,6 +195,16 @@ const methodes = {
         }
        
     },
+    getSliders() {
+        axios
+            .get("http://127.0.0.1:8000/api/sliders")
+            .then((res) => (state.sliders = res.data));
+    },
+    get_home_products(){
+        axios
+        .get("http://127.0.0.1:8000/api/homesproducts")
+        .then((res) => (state.home_products = res.data));
+    }
 };
 
 export default { state, methodes };

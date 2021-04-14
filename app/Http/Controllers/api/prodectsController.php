@@ -18,4 +18,9 @@ class prodectsController extends Controller
         $prodect = Prodect::where('slug',$slug)->get();
         return $prodect;
     }
+    public function home_products()
+    {
+        $prodect = Prodect::where('show_in_home',1)->get();
+        return $prodect;
+    }
 }

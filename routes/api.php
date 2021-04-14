@@ -34,7 +34,9 @@ Route::prefix('prodect')->group(function () {
  */
 Route::get('/sliders', [SlidersController::class, 'index']);
 Route::get('/prodects', [prodectsController::class, 'index']);
+Route::get('/homesproducts', [prodectsController::class, 'home_products']);
 Route::get('/prodect/{slug}', [prodectsController::class, 'productwithslug']);
+
 Route::post('/CreateOrder', [CreateordersController::class, 'CreateOrder']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
