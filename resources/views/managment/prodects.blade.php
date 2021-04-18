@@ -370,18 +370,28 @@
 
 
     </div>
-    <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script> --}}
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
 
 
 @foreach ($prodects as $prodect)
     
-ClassicEditor
+   
+
+
+    CKEDITOR.replace( "{{'editoredit'.$prodect['id']}}", {
+    filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+    filebrowserUploadMethod: 'form'
+});
+
+
+/* ClassicEditor
         .create( document.querySelector( "{{ '#editoredit'.$prodect['id'] }}" ) )
         .catch( error => {
             console.error( error );
         } );
-
+ */
 @endforeach
 
 
@@ -471,11 +481,11 @@ ClassicEditor
 
        
 
-    ClassicEditor
+  /*   ClassicEditor
         .create( document.querySelector( '#editor' ) )
         .catch( error => {
             console.error( error );
-        } );
+        } ); */
        
         function newValue(c,el){
             if(c===' '){    

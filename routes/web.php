@@ -24,6 +24,8 @@ Route::resource('prodects', 'App\Http\Controllers\Managment\ProdectsController')
 Route::resource('sliders','App\Http\Controllers\Managment\SlidersController');
 Route::resource('orders','App\Http\Controllers\Managment\OrdersController');
 Route::get('new-orders','App\Http\Controllers\Managment\OrdersController@new_Order')->name('new-orders');
+Route::post('ckeditor/image_upload', 'App\Http\Controllers\CKEditorController@upload')->name('upload');
+
 Route::get('/', function () {
     return view('welcome');
 });
