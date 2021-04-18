@@ -23,8 +23,9 @@ class CreateProdectsTable extends Migration
             $table->string('image2');
             $table->string('image3');
             $table->boolean('show_in_home');
-            $table->decimal('qty');
+           // $table->decimal('qty');
             $table->foreignId('categori_id')->constrained('categories');
+            $table->string('variants');
             $table->softDeletes();
             $table->timestamps();
         });

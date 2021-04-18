@@ -17,11 +17,30 @@ class ProdectsController extends Controller
      */
     public function index()
     {
+
        
-        $prodects = Prodect::all();
-        $categories = category::all();
+        $prodects = Prodect::all()->toArray();
+        $prods=[];
+        $variants=[];
+       $i=-1;
+        foreach($prodects as $prodect){
+            $i++;
+           $prods[$i]=$prodect;
+           $prods[$i]['variants_values']=json_decode($prodect['variants']);
+        }
+        $i=-1;
+       // dd(array_keys( get_object_vars($prods[0]['variants_values'])));
+        foreach($prods as $prodect){
+            $i++;
+           $prods[$i]['variants'] = array_keys( get_object_vars($prodect['variants_values']));
+        }
+     
+
+     
+      
+                $categories = category::all();
         
-        return view('managment.prodects', ['prodects' => $prodects, 'categories' => $categories]);
+        return view('managment.prodects', ['prodects' => $prods, 'categories' => $categories]);
     }
 
     /**
@@ -42,19 +61,36 @@ class ProdectsController extends Controller
      */
     public function store(Request $request)
     {
-
-
+        
+        $variants=[];
+        $values='values';
+        $i=-1;
+        $values='values'.$i;
+        
+        if( isset( $request->variant)){
+            foreach($request->variant as $variant){
+               $variants[$variant]=[];
+            } 
+           //dd($variants);
+            $i=-1;
+            foreach($request->variant as $variantt){
+                $i++;
+                $values='values'.$i;
+                $variants[$variantt]=$request->$values;          
+            } 
+          
+        }
+        //dd(json_encode($variants));
         $request->validate([
             'name' => 'bail|required',
             'description' => 'bail|required',
             'categori_id' => 'required',
             'price' => 'required|numeric',
-            'qty' => 'bail|required|numeric',
-
-
+          //  'qty' => 'bail|required|numeric',
         ]);
 
         $product = new Prodect();
+        $product->variants=json_encode($variants);
         $product->name = $request->name;
         $product->slug = Str::slug($request->name);
         $product->description = $request->description;
@@ -81,9 +117,10 @@ class ProdectsController extends Controller
         $product->show_in_home = isset($request->show_in_home) ? true : false;
 
 
-        $product->qty = $request->qty;
+       // $product->qty = $request->qty;
         $product->categori_id = $request->categori_id;
         $product->save();
+       
         return redirect()->route('prodects.index');
     }
 
@@ -118,8 +155,27 @@ class ProdectsController extends Controller
      */
     public function update(Request $request, $slug)
     {
-         
+          //  dd($request);
             $product = Prodect::where('slug',$slug)->first();
+            $values='values';
+            $i=-1;
+            $values='values'.$i;
+            $variants=[];
+            if( isset( $request->variant)){
+                        foreach($request->variant as $variant){
+                           $variants[$variant]=[];
+                        } 
+                       //dd($variants);
+                        $i=-1;
+                        foreach($request->variant as $variantt){
+                            $i++;
+                            $values='values'.$i;
+                            $variants[$variantt]=$request->$values;          
+                        } 
+                      
+                    }
+             $product->variants=json_encode($variants);
+                  
             $product->name = $request->name;
             $product->slug = Str::slug($request->name);
             $product->description = $request->description;
@@ -151,11 +207,15 @@ class ProdectsController extends Controller
     
             $product->show_in_home = isset($request->show_in_home) ? true : false;
     
-    
-            $product->qty = $request->qty;
+            //dd(  $product->variants);
+        //    $product->qty = $request->qty;
             $product->categori_id = $request->categori_id;
-          
+       
             $product->save();
+         
+
+
+         
             return redirect()->route('prodects.index');
 
 

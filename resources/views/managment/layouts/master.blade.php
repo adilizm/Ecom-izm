@@ -29,6 +29,59 @@ The above copyright notice and this permission notice shall be included in all c
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../jscssmanagment/demo/demo.css" rel="stylesheet" />
   <link href="../jscssmanagment/css/jasny-bootstrap.min.css" rel="stylesheet" />
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .notification {
+   
+      color: white;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+      border-radius: 10px;
+    }
+    
+    .notification:hover {
+      background: rgb(226, 226, 226);
+    }
+    
+    
+    .notification .badge {
+      position: absolute;
+      top: -3px;
+      right:-9px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background-color: rgb(255, 70, 70);
+      color: white;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .notificationVariant {
+      margin-left: 30px;
+    }
+    .notificationVariant .badgeVariant {
+     left: -15px;
+      top: 10px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background-color: rgb(255, 70, 70);
+      color: white;
+      z-index: 10;
+      cursor: pointer;
+          position: absolute;
+      
+    }
+    .badge:hover {
+      background: rgba(245, 18, 18, 0.823);
+    }
+    </style>
 </head>
 
 <body class="">
