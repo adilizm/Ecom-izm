@@ -225,7 +225,7 @@
 
                     </div>
 
-                    <button class="btn btn-primary float-right" type="button" data-toggle="modal" data-target="#modal_new_">
+                    <button class="btn btn-primary float-right" id="add_new_product" type="button" data-toggle="modal" data-target="#modal_new_">
                         New Prodect </button>
                     <div class="modal fade" id="modal_new_" tabindex="-1" aria-labelledby="{{ 'modal_new' }}"
                         aria-hidden="true">
@@ -373,13 +373,10 @@
     {{-- <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script> --}}
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script>
-
+let add_one_variant_by_newproduct=true
 
 @foreach ($prodects as $prodect)
     
-   
-
-
     CKEDITOR.replace( "{{'editoredit'.$prodect['id']}}", {
     filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
     filebrowserUploadMethod: 'form'
@@ -393,7 +390,10 @@
         } );
  */
 @endforeach
-
+CKEDITOR.replace( "editor", {
+    filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+    filebrowserUploadMethod: 'form'
+});
 
 
 
@@ -419,6 +419,30 @@
             document.getElementById("Variants-container").innerHTML=variant0;
         }
        
+    })
+    document.getElementById("add_new_product").addEventListener('click',()=>{
+        const hasclone= document.getElementById("clone")
+        if(add_one_variant_by_newproduct || !hasclone){
+     
+        console.log('hasclone = ',hasclone);
+        if(hasclone){
+            num++
+           const clone= document.getElementById("Variants-container").lastChild.cloneNode(true);
+           console.log('clone = ',clone)
+           const ggs=clone.querySelectorAll(".gg")
+          
+            ggs.forEach(element => {
+                element.name='values'.concat(num,'[]')
+                console.log('gg =',element.name)
+            });
+            document.getElementById("Variants-container").appendChild(clone);
+      
+        }else{
+            console.log(num)
+            document.getElementById("Variants-container").innerHTML=variant0;
+        }
+        add_one_variant_by_newproduct=false
+    }
     })
 
 // edite section script

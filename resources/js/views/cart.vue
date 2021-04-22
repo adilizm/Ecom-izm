@@ -16,31 +16,36 @@
               <th>TOTAL</th>
             </thead>
             <tbody>
-              <tr  v-for="product in store.state.prodects_in_cart" :key="product.id">
+              <tr  v-for="p in store.state.prodects_in_cart" :key="p.id">
                   <td>
                     <div class="d-flex my-2">
-                       <img class="d-none d-md-block d-lg-block d-xl-block " :src="product.product.image1" width="100" height="100" alt="">
+                       <img class="d-none d-md-block d-lg-block d-xl-block " :src="p.product.image1" width="100" height="100" alt="">
                         <div class="name_remove">
-                            <span class="name">{{product.product.name}}</span>
-                            <button class="btn btn-sm" @click="store.methodes.remove_product_from_cart(product.product)">remove</button>
+                            <router-link style="    font-variant: all-small-caps;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;" :to="{name:'selected_product',params:{'product_name':p.product.name}}">{{p.product.name}}</router-link>
+                            <div style="text-align: center;"><span style="color: #9f9f9f;    font-weight: 900;    font-variant: all-small-caps;    font-size: larger;" v-for="(variant,index) in p.selected_variant" :key="variant">{{p.variants_values[index][p.selected_variant[index][1]]}} - </span> </div>
+                          <button class="btn btn-sm" @click="store.methodes.remove_product_from_cart(p.product)">remove</button>
                         </div>
                     </div>
                   </td>
                   <td>
                       <div class="d-flex">
-                      <button class="btn btn-sm px-2 mx-1" @click="store.methodes.decrease_Quantity(product.product)"  >-</button>
-                      <input style="max-width:40px;" type="number" id="qtyd" :value="product.qty" readonly >
-                      <button class="btn btn-sm px-2 mx-1" @click="store.methodes.increase_Quantity(product.product)" >+</button>
+                      <button class="btn btn-sm px-2 mx-1" @click="store.methodes.decrease_Quantity(p.product)"  >-</button>
+                      <input style="max-width:40px;" type="number" id="qtyd" :value="p.qty" readonly >
+                      <button class="btn btn-sm px-2 mx-1" @click="store.methodes.increase_Quantity(p.product)" >+</button>
                       </div>
                   </td>
                      <td>
                       <div class="d-flex">
-                       {{product.product.price}}
+                       {{p.product.price}}
                       </div>
                   </td>
                     <td>
                       <div class="d-flex">
-                       {{product.product.price * product.qty}}
+                       {{p.product.price * p.qty}}
                       </div>
                   </td>
               </tr>
@@ -112,6 +117,7 @@ export default {
 }
 .name_remove{
     display: grid;
+        width: 100%;
 }
 .name{
     place-self: center;

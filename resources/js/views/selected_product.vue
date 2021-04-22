@@ -112,9 +112,6 @@
                   </div>
                 </div>
 
-
-              
-
                 <button
                   @click="
                     store.methodes.add_prodect_to_cart_with_qty(
@@ -140,12 +137,11 @@
 <script>
 import { inject, ref } from "vue";
 export default {
-  props: ["slug"],
+  props: ["product_name"],
   setup(props) {
     const store = inject("store");
-
-    store.methodes.getprodectwithslug(props.slug);
-    
+    console.log('product_name =',props.product_name)
+    store.methodes.select_prodect_from_cart(props.product_name);
     const image1 = ref(true);
     const image2 = ref(false);
     const image3 = ref(false);
@@ -174,10 +170,8 @@ export default {
       }
     };
 
-  function selected(value){
-    alert('value = ',value)
-  }
-    return { store, Make_image_main, image1, image2, image3, check_qty,selected };
+  
+    return { store, Make_image_main, image1, image2, image3, check_qty };
   },
 };
 </script>

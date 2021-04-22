@@ -75,7 +75,7 @@ The above copyright notice and this permission notice shall be included in all c
       color: white;
       z-index: 10;
       cursor: pointer;
-          position: absolute;
+      position: absolute;
       
     }
     .badge:hover {

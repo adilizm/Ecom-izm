@@ -30,10 +30,12 @@ class ProdectsController extends Controller
         }
         $i=-1;
        // dd(array_keys( get_object_vars($prods[0]['variants_values'])));
+     
         foreach($prods as $prodect){
             $i++;
            $prods[$i]['variants'] = array_keys( get_object_vars($prodect['variants_values']));
         }
+    
      
 
      

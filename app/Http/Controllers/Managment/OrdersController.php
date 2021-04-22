@@ -24,7 +24,6 @@ class OrdersController extends Controller
 
         $waitting_orders = Order::where('status', 'new')->get()->toArray();
         $number_orders = count($waitting_orders);
-        $orderds_prodects_ids = []; // this is ids of orderd prodects and qty
         $int = -1;
         $prodects_ordred = []; // this is prodects in all orders
         $number_call_back = Order::where('status', 'call_back')->count();
@@ -48,15 +47,39 @@ class OrdersController extends Controller
             array_push($orders1, $order);
         }
         $int = -1;
-
+        //dd($orders1);
         foreach ($orders1 as $order) {
             foreach ($order['orderds_prodects_ids'] as $orders) {
                 foreach ($orders as $order) {
                     $p = Prodect::Find($order->prodect_id)->toArray();
-                    $order->prodet = $p;
+                     $order->prodet = $p;
                 }
             }
         }
+        $v=[];
+       foreach($orders1[0]['orderds_prodects_ids'] as $products){
+         
+        foreach($products as $productx){
+           // dd($productx);
+           // 0 => array:2 [▶]
+           // 1 => array:2 [▶]
+           
+            foreach($productx->selected_variant as $variantx){
+                $ar=get_object_vars(json_decode( $productx->prodet['variants'])); // convert to array and propreteys are string 
+            
+                Array_push( $v,$ar[$variantx[0]][$variantx[1]]);
+            //  dd($variantx);
+            } 
+           $productx->selected_values= $v;
+             $v=[];
+        }
+       
+       }
+      
+      // dd($orders1);
+        //  dd($orders1[0]['orderds_prodects_ids'][0]);
+
+      //  dd($orders1[0]['orderds_prodects_ids'][0][0]->selected_variant[0][1]);
         return view('managment.New_orders', [
             'orders' => $orders1,
             'number_orders' => $number_orders,

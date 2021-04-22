@@ -5,6 +5,7 @@ import About from '../js/views/About';
 import Allprodects from '../js/views/Allprodects';
 import oneProduct from '../js/views/oneProduct';
 import cart from '../js/views/cart';
+import selected_product from '../js/views/selected_product';
 
  let routes= [
     {
@@ -32,6 +33,12 @@ import cart from '../js/views/cart';
         path: '/cart',
         name: 'cart',
         component: cart
+    },
+    {
+        path: '/product_edit/:product_name',
+        name: 'selected_product',
+        component: selected_product,
+        props:true
     }
 ]
 const router = createRouter({

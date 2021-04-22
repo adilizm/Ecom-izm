@@ -123,8 +123,9 @@
                                                                     <div class="table-responsive">
                                                                         <table class="table" id="{{ $order['name']. $order['id'].'table'}}">
                                                                             <thead>
-                                                                                <th>Prodect image</th>
-                                                                                <th>Prodect name</th>
+                                                                                <th>Product image</th>
+                                                                                <th>Product name</th>
+                                                                                <th>Product variant</th>
                                                                                 <th>Quantity</th>
                                                                                 <th>price unit</th>
                                                                                 <th>Full price</th>
@@ -138,6 +139,11 @@
                                                                                         <td>
                                                                                             <h4>{{  $prodect->prodet['name'] }}
                                                                                             </h4>
+                                                                                        </td>
+                                                                                         <td>
+                                                                                             <h4> @foreach ($prodect->selected_variant as $variant)
+                                                                                                  <strong><div> {{$variant[0]}} : {{$prodect->selected_values[$loop->index]}}</div></strong> 
+                                                                                             @endforeach </h4> 
                                                                                         </td>
                                                                                         <td>
                                                                                              <h4>{{  $prodect->qty }}</h4> 
