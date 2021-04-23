@@ -19,9 +19,9 @@ class CreateOrdersTable extends Migration
             $table->string('telephone');
             $table->string('email');
             $table->string('address');
-            $table->string('prodects_json');
+            $table->text('prodects_json');
             $table->string('status');
-            $table->string('note');
+            $table->text('note');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -126,6 +126,11 @@
                                                                                             <h4>{{  $prodect->prodet['name'] }}
                                                                                             </h4>
                                                                                         </td>
+                                                                                         <td>
+                                                                                             <h4> @foreach ($prodect->selected_variant as $variant)
+                                                                                                  <strong><div> {{$variant[0]}} : {{$prodect->selected_values[$loop->index]}}</div></strong> 
+                                                                                             @endforeach </h4> 
+                                                                                        </td>
                                                                                         <td>
                                                                                              <h4>{{  $prodect->qty }}</h4> 
                                                                                         </td>

@@ -22,6 +22,7 @@ const state = reactive({
     prodect_variants_values: [],
     prodect_selected_variants_values: [],
     variants_value_selected: [],
+    ordred:false,
 });
 
 const methodes = {
@@ -34,7 +35,6 @@ const methodes = {
         );
         state.product[0].selected_variant.forEach((variant) => {
             if (variant[0] == _variant) {
-                console.log("m3alkaa");
                 variant[1] = index;
             }
         });
@@ -412,10 +412,10 @@ const methodes = {
                 json_poducts.products.push(prod);
             }
             order.prodects_json = json_poducts;
-            console.log('ordere seded = ' ,order)
-            /*  axios
+            
+              axios
                 .post("http://127.0.0.1:8000/api/CreateOrder", order)
-                .then((res) => console.log(res));  */
+                .then((res) => console.log(res),state.ordred=true); 
         }
     },
     getSliders() {

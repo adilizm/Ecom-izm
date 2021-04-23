@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="!store.state.ordred" >
       <div class="col-12 col-lg-7 col-xl-7">
         <div class="mx-2 d-flex justify-content-between shop">
           <h1>Shopping Cart</h1>
@@ -19,7 +19,7 @@
               <tr  v-for="p in store.state.prodects_in_cart" :key="p.id">
                   <td>
                     <div class="d-flex my-2">
-                       <img class="d-none d-md-block d-lg-block d-xl-block " :src="p.product.image1" width="100" height="100" alt="">
+                       <img class="d-none d-md-block d-lg-block d-xl-block main-product-image-cart " :src="p.product.image1" width="100" height="100" alt="">
                         <div class="name_remove">
                             <router-link style="    font-variant: all-small-caps;
     color: black;
@@ -97,6 +97,17 @@
 
       </div>
     </div>
+    <div v-else >
+      <div class="container">
+        <div class="row justify-content-center">
+          <img src="/images/Order-completed.png" alt="order-completed" width="300"  >
+        </div>
+        <div class=" row justify-content-center">
+           <h4>الطلبية تمت بنجاح, سنتواصل معك للتاكيد</h4>
+        </div>
+      </div>
+        <div class=" justify-content-center"><h6>متابعة التسوق</h6></div>
+    </div>
   </div>
 </template>
 
@@ -134,5 +145,8 @@ td{
 .needed{
   border-color: red;
   box-shadow: 0 0 0 0.2rem rgb(255 0 0 / 25%);
+}
+.main-product-image-cart{
+border-radius: 10px;
 }
 </style>

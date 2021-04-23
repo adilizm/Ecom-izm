@@ -6,8 +6,9 @@
                 <div class="card-header card-header-primary d-flex justify-content-between">
                     <div>
                         <h4 class="card-title ">No response orders</h4>
-                        <p class="card-category"> you have <span>{{ $number_orders }}</span> No response orders </p>
+                        <p class="card-category"> you have <span>{{ $number_orders }}</span> No response order </p>
                     </div class="float-right">
+                 
                 </div>
                 @if (count($orders) > 0)
                     <div class="card-body">
@@ -109,8 +110,9 @@
                                                                     <div class="table-responsive">
                                                                         <table class="table" id="{{ $order['name']. $order['id'].'table'}}">
                                                                             <thead>
-                                                                                <th>Prodect image</th>
-                                                                                <th>Prodect name</th>
+                                                                                <th>Product image</th>
+                                                                                <th>Product name</th>
+                                                                                <th>Product variant</th>
                                                                                 <th>Quantity</th>
                                                                                 <th>price unit</th>
                                                                                 <th>Full price</th>
@@ -124,6 +126,11 @@
                                                                                         <td>
                                                                                             <h4>{{  $prodect->prodet['name'] }}
                                                                                             </h4>
+                                                                                        </td>
+                                                                                         <td>
+                                                                                             <h4> @foreach ($prodect->selected_variant as $variant)
+                                                                                                  <strong><div> {{$variant[0]}} : {{$prodect->selected_values[$loop->index]}}</div></strong> 
+                                                                                             @endforeach </h4> 
                                                                                         </td>
                                                                                         <td>
                                                                                              <h4>{{  $prodect->qty }}</h4> 
@@ -167,7 +174,29 @@
                                                                         <button class="dropdown-item"
                                                                             type="submit">confirme</button>
                                                                     </form>
-                                                                  
+                                                                    <form method="POST"
+                                                                        action="{{ route('no_response', $order['id']) }}">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <button class="dropdown-item" type="submit">no
+                                                                            response</button>
+                                                                    </form>
+                                                                    <form method="POST"
+                                                                        action="{{ route('call_back',$order['id']) }}">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <input type="hidden" id="costumer_name3{{$order['id']}}"
+                                                                        name="name">
+                                                                    <input type="hidden" id="costumer_address3{{$order['id']}}"
+                                                                        name="address">
+                                                                    <input type="hidden" id="costumer_telephone3{{$order['id']}}"
+                                                                        name="telephone">
+                                                                    <input type="hidden" id="costumer_email3{{$order['id']}}"
+                                                                        name="email">
+                                                                    <input type="hidden" id="costumer_note3{{$order['id']}}"
+                                                                        name="note">
+                                                                        <button class="dropdown-item" type="submit">call back</button>
+                                                                    </form>
                                                                   
                                                                 </div> 
                                                              </div> 
@@ -179,7 +208,6 @@
                                                 </div>
                         </div>
                         </td>
-                      
                 @endforeach
                 </tbody>
                 </table>
@@ -191,18 +219,23 @@
     </div>
     </div>
     <script>
-        function dataSync(num) {
+       function dataSync(num) {
             var costumer_name = document.getElementById("costumer_name".concat(num)).value;
             document.getElementById("costumer_name2".concat(num)).setAttribute('value', costumer_name);
+            document.getElementById("costumer_name3".concat(num)).setAttribute('value', costumer_name);
             var costumer_telephone = document.getElementById("costumer_telephone".concat(num)).value;
             document.getElementById("costumer_telephone2".concat(num)).setAttribute('value', costumer_telephone);
+            document.getElementById("costumer_telephone3".concat(num)).setAttribute('value', costumer_telephone);
             var costumer_address = document.getElementById("costumer_address".concat(num)).value;
             document.getElementById("costumer_address2".concat(num)).setAttribute('value', costumer_address);
+            document.getElementById("costumer_address3".concat(num)).setAttribute('value', costumer_address);
             var costumer_email = document.getElementById("costumer_email".concat(num)).value;
             document.getElementById("costumer_email2".concat(num)).setAttribute('value', costumer_email);
+            document.getElementById("costumer_email3".concat(num)).setAttribute('value', costumer_email);
             var costumer_note = document.getElementById("costumer_note".concat(num)).value;
             document.getElementById("costumer_note2".concat(num)).setAttribute('value', costumer_note);
-            console.log(num);
+            document.getElementById("costumer_note3".concat(num)).setAttribute('value', costumer_note);
+           
         }
         @foreach ($orders as $order)
         dataSync("{{$order['id']}}")

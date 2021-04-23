@@ -1,20 +1,20 @@
 <template>
+
 <navbar/>
-
-
-
+<div class="content">
  <router-view/>
+ </div>
+<Footer0 />
 </template>
 
 <script>
 import store from './store'
 import { provide } from 'vue'
-
+import Footer0 from './components/Footer0.vue'
 import navbar from './components/navbar.vue'
-import sliders from './components/sliders.vue' 
 
 export default { 
-    components:{ navbar,sliders }
+    components:{ navbar ,Footer0}
     ,setup(){
         provide('store', store)
     }
@@ -22,5 +22,9 @@ export default {
 </script>
 
 <style>
-
+.content {
+  padding: 20px;
+  min-height: 78.5vh;
+  margin: 0 auto 5px;
+}
 </style>
