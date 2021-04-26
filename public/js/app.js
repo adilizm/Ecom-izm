@@ -16824,14 +16824,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
-    var store = (0,vue__WEBPACK_IMPORTED_MODULE_0__.inject)('store');
-    console.log(store.state.prodects_in_cart);
+    var _this = this;
+
+    var store = (0,vue__WEBPACK_IMPORTED_MODULE_1__.inject)("store");
+    var paypal = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(null);
+    var loaded = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
+    var paidFor = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
+    var product = {
+      price: 15.22,
+      description: "leg lamp from that one movie",
+      img: "./assets/lamp.jpg"
+    };
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
+      var script = document.createElement("script");
+      script.setAttribute("data-namespace", "paypal_sdk");
+      script.src = "https://www.paypal.com/sdk/js?client-id=AXDJPmFjXpXm9HMXK4uZcW3l9XrCL36AxEeWBa4rhV2-xFcVYJrGKvNowY-xf2PitTSkStVNjabZaihe";
+      script.addEventListener("load", function () {
+        loaded = true;
+        console.log('hello adil');
+        paypal_sdk.Buttons({
+          createOrder: function createOrder(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                description: 'this is product description',
+                amount: {
+                  currency_code: "USD",
+                  value: store.state.total_to_pay
+                }
+              }]
+            });
+          },
+          onApprove: function () {
+            var _onApprove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(data, actions) {
+              var order;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return actions.order.capture();
+
+                    case 2:
+                      order = _context.sent;
+                      _this.data;
+                      _this.paidFor = true;
+                      console.log(order);
+
+                    case 6:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee);
+            }));
+
+            function onApprove(_x, _x2) {
+              return _onApprove.apply(this, arguments);
+            }
+
+            return onApprove;
+          }(),
+          onError: function onError(err) {
+            console.log(err);
+          }
+        }).render(paypal.value);
+      });
+      document.body.appendChild(script);
+    });
     return {
-      store: store
+      store: store,
+      paypal: paypal
     };
   }
 });
@@ -17601,10 +17675,13 @@ var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 );
 
 var _hoisted_37 = {
+  ref: "paypal"
+};
+var _hoisted_38 = {
   key: 1
 };
 
-var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"container\" data-v-30c532c2><div class=\"row justify-content-center\" data-v-30c532c2><img src=\"/images/Order-completed.png\" alt=\"order-completed\" width=\"300\" data-v-30c532c2></div><div class=\" row justify-content-center\" data-v-30c532c2><h4 data-v-30c532c2>الطلبية تمت بنجاح, سنتواصل معك للتاكيد</h4></div></div><div class=\" justify-content-center\" data-v-30c532c2><h6 data-v-30c532c2>متابعة التسوق</h6></div>", 2);
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"container\" data-v-30c532c2><div class=\"row justify-content-center\" data-v-30c532c2><img src=\"/images/Order-completed.png\" alt=\"order-completed\" width=\"300\" data-v-30c532c2></div><div class=\"row justify-content-center\" data-v-30c532c2><h4 data-v-30c532c2>Order accepted we&#39;ll connect you soon</h4></div></div><div class=\"justify-content-center\" data-v-30c532c2><h6 data-v-30c532c2>back to shop</h6></div>", 2);
 
 (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)();
 
@@ -17617,7 +17694,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("tr", {
       key: p.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("img", {
-      "class": "d-none d-md-block d-lg-block d-xl-block main-product-image-cart ",
+      "class": "d-none d-md-block d-lg-block d-xl-block main-product-image-cart",
       src: p.product.image1,
       width: "100",
       height: "100",
@@ -17635,7 +17712,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       to: {
         name: 'selected_product',
         params: {
-          'product_name': p.product.name
+          product_name: p.product.name
         }
       }
     }, {
@@ -17668,14 +17745,14 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       onClick: function onClick($event) {
         return $setup.store.methodes.remove_product_from_cart(p.product);
       }
-    }, "remove", 8
+    }, " remove ", 8
     /* PROPS */
     , ["onClick"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
       "class": "btn btn-sm px-2 mx-1",
       onClick: function onClick($event) {
         return $setup.store.methodes.decrease_Quantity(p.product);
       }
-    }, "-", 8
+    }, " - ", 8
     /* PROPS */
     , ["onClick"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
       style: {
@@ -17692,7 +17769,7 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
       onClick: function onClick($event) {
         return $setup.store.methodes.increase_Quantity(p.product);
       }
-    }, "+", 8
+    }, " + ", 8
     /* PROPS */
     , ["onClick"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(p.product.price), 1
     /* TEXT */
@@ -17767,15 +17844,17 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
     required: ""
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.store.state.Addres]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
-    "class": "btn btn-primary float-right",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.store.state.Addres]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_37, null, 512
+  /* NEED_PATCH */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+    "class": "btn btn-primary float-right w-100",
     onClick: _cache[7] || (_cache[7] = function () {
       var _$setup$store$methode;
 
       return $setup.store.methodes.SubmiteOrder && (_$setup$store$methode = $setup.store.methodes).SubmiteOrder.apply(_$setup$store$methode, arguments);
     }),
     type: "button"
-  }, "Make the order")])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_37, [_hoisted_38]))]);
+  }, " Cash on delivery ")])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_38, [_hoisted_39]))]);
 });
 
 /***/ }),
@@ -18841,7 +18920,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.shop[data-v-30c532c2] {\r\n  align-items: center;\n}\n.name_remove[data-v-30c532c2]{\r\n    display: grid;\r\n        width: 100%;\n}\n.name[data-v-30c532c2]{\r\n    place-self: center;\r\n    padding: 0 20px;\r\n    font-weight: 700;\n}\ntd[data-v-30c532c2]{\r\n    padding: 2px 10px;\n}\n.price_total[data-v-30c532c2]{\r\n      font-size: 20px;\r\n    font-weight: 800;\n}\n.needed[data-v-30c532c2]{\r\n  border-color: red;\r\n  box-shadow: 0 0 0 0.2rem rgb(255 0 0 / 25%);\n}\n.main-product-image-cart[data-v-30c532c2]{\r\nborder-radius: 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.shop[data-v-30c532c2] {\r\n  align-items: center;\n}\n.name_remove[data-v-30c532c2] {\r\n  display: grid;\r\n  width: 100%;\n}\n.name[data-v-30c532c2] {\r\n  place-self: center;\r\n  padding: 0 20px;\r\n  font-weight: 700;\n}\ntd[data-v-30c532c2] {\r\n  padding: 2px 10px;\n}\n.price_total[data-v-30c532c2] {\r\n  font-size: 20px;\r\n  font-weight: 800;\n}\n.needed[data-v-30c532c2] {\r\n  border-color: red;\r\n  box-shadow: 0 0 0 0.2rem rgb(255 0 0 / 25%);\n}\n.main-product-image-cart[data-v-30c532c2] {\r\n  border-radius: 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
